@@ -1,4 +1,4 @@
-# Mindful Cropper
+# React Image Cropper
 
 A modern, responsive image cropping application built with React and TypeScript. This project provides a user-friendly interface for cropping and manipulating images with a clean, accessible design.
 
