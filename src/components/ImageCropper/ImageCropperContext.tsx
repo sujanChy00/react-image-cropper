@@ -88,31 +88,55 @@ export const ImageCropperProvider: React.FC<{ children: React.ReactNode }> = ({
     const file = e.target.files?.[0];
     if (!file) return;
 
+    // Check if it's an image file
     if (!file.type.startsWith("image/")) {
       toast({
-        title: "Error",
-        description: "Selected file is not an image",
+        title: "Invalid file type",
+        description: "Please select an image file (JPG, PNG, GIF)",
         variant: "destructive",
       });
       return;
     }
 
-    // // Check file size (max 10MB)
-    // if (file.size > 10 * 1024 * 1024) {
-    //   toast({
-    //     title: "Error",
-    //     description: "Image is too large (max 10MB)",
-    //     variant: "destructive",
-    //   });
-    //   return;
-    // }
+    // Check file size (max 10MB)
+    if (file.size > 10 * 1024 * 1024) {
+      toast({
+        title: "File too large",
+        description: "Image size should be less than 10MB",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    // Validate image dimensions
+    const img = new Image();
+    img.onload = () => {
+      if (img.width < 50 || img.height < 50) {
+        toast({
+          title: "Image too small",
+          description: "Image dimensions should be at least 50x50 pixels",
+          variant: "destructive",
+        });
+        return;
+      }
+
+      setOriginalImage(img.src);
+      setCroppedImage("");
+      setIsCropping(true);
+    };
+
+    img.onerror = () => {
+      toast({
+        title: "Invalid image",
+        description: "Failed to load image. Please try another file.",
+        variant: "destructive",
+      });
+    };
 
     const reader = new FileReader();
     reader.onload = (event) => {
       if (event.target?.result) {
-        setOriginalImage(event.target.result as string);
-        setCroppedImage("");
-        setIsCropping(true);
+        img.src = event.target.result as string;
       }
     };
     reader.readAsDataURL(file);

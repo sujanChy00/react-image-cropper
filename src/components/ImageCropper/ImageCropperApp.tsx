@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { RotateCw, Trash2, Upload, UploadCloud } from "lucide-react";
-import React from "react";
+import React, { useState } from "react";
 import CropperDialog from "./CropperDialog";
 import { ImageCropperProvider, useImageCropper } from "./ImageCropperContext";
 
@@ -17,21 +17,60 @@ const ImageCropperContent: React.FC = () => {
     handleStartCropping,
   } = useImageCropper();
 
+  const [isDragging, setIsDragging] = useState(false);
   const displayImage = croppedImage || originalImage;
   const isImageCropped = !!croppedImage;
+
+  const handleDragEnter = (e: React.DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsDragging(true);
+  };
+
+  const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsDragging(true);
+  };
+
+  const handleDragLeave = (e: React.DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsDragging(false);
+  };
+
+  const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsDragging(false);
+
+    const files = Array.from(e.dataTransfer.files);
+    if (files.length === 0) return;
+
+    const file = files[0];
+
+    const fakeEvent = {
+      target: {
+        files: [file],
+      },
+    } as unknown as React.ChangeEvent<HTMLInputElement>;
+
+    handleFileChange(fakeEvent);
+  };
 
   return (
     <div className="flex flex-col h-full w-full max-w-4xl mx-auto bg-background rounded-lg overflow-hidden shadow-lg animate-fade-in">
       <CropperDialog />
 
       <div className="p-6 md:p-8 flex flex-col h-full">
-        <h1 className="text-2xl md:text-3xl font-bold mb-2">Mindful Cropper</h1>
+        <h1 className="text-2xl md:text-3xl font-bold mb-2">
+          React Image Cropper
+        </h1>
         <p className="text-muted-foreground mb-8">
           A simple, elegant image cropping tool
         </p>
 
         <div className="flex-1">
-          {/* Image section */}
           <div className="flex flex-col">
             <h2 className="text-lg font-semibold mb-4">Image</h2>
 
@@ -46,12 +85,21 @@ const ImageCropperContent: React.FC = () => {
             {!displayImage ? (
               <div
                 onClick={handleTriggerFileInput}
-                className="border-2 border-dashed border-border rounded-lg flex-1 flex flex-col items-center justify-center p-8 cursor-pointer hover:bg-muted/50 transition-colors min-h-[300px]"
+                onDragEnter={handleDragEnter}
+                onDragOver={handleDragOver}
+                onDragLeave={handleDragLeave}
+                onDrop={handleDrop}
+                className={cn(
+                  "border-2 border-dashed border-border rounded-lg flex-1 flex flex-col items-center justify-center p-8 cursor-pointer transition-colors min-h-[300px]",
+                  isDragging ? "bg-muted border-primary" : "hover:bg-muted/50"
+                )}
               >
                 <div className="w-16 h-16 mb-4 bg-muted rounded-full flex items-center justify-center">
                   <UploadCloud className="h-8 w-8 text-muted-foreground" />
                 </div>
-                <p className="text-lg font-medium mb-2">Drop your image here</p>
+                <p className="text-lg font-medium mb-2">
+                  {isDragging ? "Drop image here" : "Drop your image here"}
+                </p>
                 <p className="text-muted-foreground text-sm mb-4 text-center">
                   or click to browse
                   <br />

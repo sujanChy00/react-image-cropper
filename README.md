@@ -43,7 +43,7 @@ git clone <repository-url>
 2. Navigate to project directory:
 
 ```sh
-cd mindful-cropper
+cd image-cropper
 ```
 
 3. Install dependencies:
