@@ -1,71 +1,99 @@
-# Welcome to your Lovable project
+# Mindful Cropper
 
-## Project info
+A modern, responsive image cropping application built with React and TypeScript. This project provides a user-friendly interface for cropping and manipulating images with a clean, accessible design.
 
-**URL**: https://lovable.dev/projects/185487af-9ba4-4bd3-90d6-cdb8712e1dd2
+## Features
 
-## How can I edit this code?
+- Interactive image cropping with real-time preview
+- Support for multiple aspect ratios
+- Round and square cropping shapes
+- Responsive design that works on all devices
+- Dark/light theme support
+- Drag and drop file upload
+- Support for JPG, PNG, and GIF formats
+- Modern, accessible UI components
 
-There are several ways of editing your application.
+## Tech Stack
 
-**Use Lovable**
+- **Frontend Framework**: React 18
+- **Build Tool**: Vite
+- **Type Safety**: TypeScript
+- **Styling**: Tailwind CSS
+- **UI Components**: shadcn/ui
+- **State Management**: React Query
+- **Routing**: React Router DOM
+- **Form Handling**: React Hook Form
+- **Toast Notifications**: Sonner
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/185487af-9ba4-4bd3-90d6-cdb8712e1dd2) and start prompting.
+## Getting Started
 
-Changes made via Lovable will be committed automatically to this repo.
+### Prerequisites
 
-**Use your preferred IDE**
+- Node.js (v18 or higher)
+- npm (comes with Node.js)
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+### Installation
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
+1. Clone the repository:
 
 ```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+git clone <repository-url>
+```
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+2. Navigate to project directory:
 
-# Step 3: Install the necessary dependencies.
-npm i
+```sh
+cd mindful-cropper
+```
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
+3. Install dependencies:
+
+```sh
+npm install
+```
+
+4. Start development server:
+
+```sh
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+The application will be available at `http://localhost:8080`
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+## Development Scripts
 
-**Use GitHub Codespaces**
+- `npm run dev` - Start development server
+- `npm run build` - Build for production
+- `npm run build:dev` - Build for development
+- `npm run lint` - Run ESLint
+- `npm run preview` - Preview production build
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+## Project Structure
 
-## What technologies are used for this project?
+```
+src/
+├── components/          # Reusable UI components
+│   ├── ImageCropper/   # Image cropping components
+│   └── ui/             # Base UI components
+├── hooks/              # Custom React hooks
+├── lib/               # Utility functions
+├── pages/             # Route components
+└── main.tsx          # Application entry point
+```
 
-This project is built with .
+## Environment Setup
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+The project uses TypeScript for type safety and Vite for fast development and optimized builds. Key configurations can be found in:
 
-## How can I deploy this project?
+- `vite.config.ts` - Vite configuration
+- `tsconfig.json` - TypeScript configuration
+- `tailwind.config.ts` - Tailwind CSS configuration
+- `eslint.config.js` - ESLint configuration
 
-Simply open [Lovable](https://lovable.dev/projects/185487af-9ba4-4bd3-90d6-cdb8712e1dd2) and click on Share -> Publish.
+## Contributing
 
-## I want to use a custom domain - is that possible?
+Contributions are welcome! Please feel free to submit issues and pull requests.
 
-We don't support custom domains (yet). If you want to deploy your project under your own domain then we recommend using Netlify. Visit our docs for more details: [Custom domains](https://docs.lovable.dev/tips-tricks/custom-domain/)
-# react-image-cropper
-# react-image-cropper
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
